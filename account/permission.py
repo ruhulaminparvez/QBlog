@@ -4,19 +4,46 @@ from rest_framework.permissions import SAFE_METHODS
 class Authenticated(permissions.BasePermission):
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_authenticated)
+    
+class IsSuperUser(permissions.BasePermission):
+    """
+    Superuser permission
+    """
+    message = 'You are not authorised to view this page.'
 
-class IsOwner(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.user == request.user
+    def has_permission(self, request, view):
+        return bool(
+            request.user and request.user.is_authenticated and request.user.is_superuser)
+
+
+class IsAdmin(permissions.BasePermission):
+    """
+    Admin permission
+    """
+    message = 'You are not authorised to view this page.'
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and request.user.is_authenticated and request.user.user_type == 'admin')
     
 class IsAuthor(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.user.user_type == 'author'
-    
-class IsAdmin(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.user.user_type == 'admin'
+    """
+    Object-level permission to only allow owners of an object to edit it.
+    """
+    message = 'You are not authorised to view this page.'
 
-class IsNormalUser(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj.user.user_type == 'normal'
+        return bool(
+            request.user and request.user.is_authenticated and request.user.user_type == 'author')
+    
+class IsNormalUser(permissions.BasePermission):
+    """
+    Normal user permission
+    """
+    message = 'You are not authorised to view this page.'
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and request.user.is_authenticated and request.user.user_type == 'normal')
+
+
