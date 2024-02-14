@@ -2,7 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import JsonResponse
-from .serializer import RegisterSerializer
+from .serializer import RegisterSerializer, CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status, generics, response
@@ -20,11 +21,6 @@ def createAccount(request):
     else:
         return JsonResponse(status=status.HTTP_422_UNPROCESSABLE_ENTITY, data=serializer.errors)
     
-class AccountView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = None
-    permission_classes = [IsSuperUser]
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        return response.Response(['Test'], status=status.HTTP_200_OK)
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+    token_obtain_pair = TokenObtainPairView.as_view()

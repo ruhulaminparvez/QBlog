@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'Blog',
     'drf_yasg',
     'rest_framework',
 ]
@@ -45,8 +46,8 @@ REST_FRAMEWORK = {
 
 # Set the token expiration time
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Adjust this value as needed
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Adjust this value as needed
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     
 }
 
 ROOT_URLCONF = 'BlogSystem.urls'

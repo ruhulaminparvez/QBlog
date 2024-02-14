@@ -33,3 +33,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+    
+class CustomTokenObtainPairSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+    
+    def validate(self, attrs):
+        data = super(CustomTokenObtainPairSerializer, self).validate(attrs)
+        return data
