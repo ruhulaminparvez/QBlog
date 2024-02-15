@@ -1,10 +1,10 @@
 from django.urls import path, include
-from .views import *
+from Blog import views
 from rest_framework.routers import DefaultRouter
 
 blogItem = DefaultRouter()
 
-blogItem.register('blog', BlogView)
+blogItem.register('blog', views.BlogView)
 
 urlpatterns = [
     path('', include(blogItem.urls)),

@@ -53,14 +53,9 @@ class BlogOwner(permissions.BasePermission):
     message = 'You are not authorised to perform this action.'
 
     def has_permission(self, request, view):
-        if request.method == 'GET' or request.method == 'POST':
-            return bool(request.user and request.user.is_authenticated and request.user.user_type == 'author')
-        elif request.method == 'PUT' or request.method == 'PATCH' or request.method == 'DELETE':
-            return bool(request.user and 
-                        request.user.is_authenticated and 
-                        request.user.user_type == 'author')
-        return False
+        return bool(request.user and request.user.is_authenticated and request.user.user_type == 'author')
     def has_object_permission(self, request, view, obj):
+        # only the blog author can update or delete the blog
         return bool(request.user.id == obj.author.id)
 
 
