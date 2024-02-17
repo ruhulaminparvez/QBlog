@@ -14,9 +14,8 @@ class SearchBlog(APIView, LimitOffsetPagination):
             queryset = Q(
                 'multi_match',
                 query=query,
-                fields=[
-                    'title', 'author.username', 'category.name'
-                ], fuzziness='auto') 
+                fields=['title', 'author.username', 'category.name'], 
+                fuzziness='auto') 
 
             search = self.search_document.search().query(queryset)
             response = search.execute()
