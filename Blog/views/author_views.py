@@ -12,6 +12,11 @@ class BlogView(viewsets.ModelViewSet):
     def get_queryset(self):
         return Blog.objects.filter(author=self.request.user)
     
+class CategoryView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthor]
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+    
 
 
     
