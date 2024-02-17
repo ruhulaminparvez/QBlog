@@ -4,11 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 from django.http import HttpResponse
 from elasticsearch_dsl import Q
+from silk.profiling.profiler import silk_profile
 
 class SearchBlog(APIView, LimitOffsetPagination):
     blog_serializer = BlogSearchSerializer
     search_document = BlogDocument
 
+    @silk_profile(name='BlogSearch_get')
     def get(self, request, query):
         try:
             queryset = Q(
