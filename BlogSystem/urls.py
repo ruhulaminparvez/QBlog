@@ -1,4 +1,5 @@
 from django.contrib import admin
+from silk import urls as silk_urls
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 
@@ -23,6 +24,8 @@ urlpatterns = [
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+    path('silk/', include(silk_urls)),
 
     #Authentication
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
