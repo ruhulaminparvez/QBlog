@@ -8,5 +8,6 @@ blogItem.register('blog', views.BlogView)
 
 urlpatterns = [
     path('', include(blogItem.urls)),
+    path('search/<str:query>/', views.SearchBlog.as_view()),
 ]
 

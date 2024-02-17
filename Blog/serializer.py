@@ -5,13 +5,13 @@ from .models import *
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username')
+        fields = ('username',)
         read_only = True
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('name')
+        fields = ('name',)
 
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,10 +19,9 @@ class BlogSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class BlogSearchSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(many=False, read_only=True)
-    category = CategorySerializer(many=False, read_only=True)
+    author = serializers.CharField(source='author.username')
+    category = serializers.CharField(source='category.name')
     class Meta:
         model = Blog
-        fields = ('id', 'author', 'category', 
-                  'title')
+        fields = ('id', 'author', 'category', 'title')
         read_only = True
