@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 
-from Blog.views import my_view
+from Blog.views import blogPercentage, blogList
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -18,7 +18,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('api/', include('Blog.urls')),
-    path('', my_view, name='my_view'),
+    path('', blogPercentage, name='blog-percentage'),
+    path('blogList/', blogList, name='blog-list'),
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
