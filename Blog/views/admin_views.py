@@ -33,7 +33,7 @@ def blogList(request):
         blogs = blogs.filter(author__username__icontains=author)
 
     # Pagination
-    paginator = Paginator(blogs, 10)  # Show 10 blogs per page
+    paginator = Paginator(blogs, 10) 
     page_number = request.GET.get('page')
     try:
         blogs = paginator.page(page_number)

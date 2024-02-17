@@ -10,8 +10,8 @@ class Category(models.Model):
         return self.name
 
 class Blog(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, db_index=True)
     title = models.CharField(max_length=200)
     banner_url = models.ImageField(upload_to='blog/banner/', null=True, blank=True)
     details = models.TextField()
@@ -21,5 +21,6 @@ class Blog(models.Model):
 
     def __str__(self):
         return f'{self.category} - {self.title} by {self.author}'
+    
 
     
