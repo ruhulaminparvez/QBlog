@@ -1,14 +1,38 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router-dom";
-
-
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
+
+    fetch("http://127.0.0.1:8000/account/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          toast.success("Registration Successful. Please Login!");
+          return response.json();
+        }
+        return response.json().then((data) => {
+          throw new Error(data.message);
+        });
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        toast.error(error.message || "Resgistation Failed! Please try again");
+        console.log(error.message);
+      });
   }
 
   return (
@@ -45,9 +69,7 @@ const SignUp = () => {
                 {...register("password",
                   {
                     required: "**Password is Required",
-                    minLength: { value: 6, message: "**Password must be at least 6 characters" },
-                    maxLength: { value: 15, message: "**Password must be at most 15 characters" },
-                    pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, message: "**Password must contain at least one letter and one number" }
+                    minLength: { value: 6, message: "**Password must be at least 6 characters" }
                   }
                 )}
                 placeholder="Enter your password"
@@ -63,6 +85,7 @@ const SignUp = () => {
                 {...register("user_type", { required: "**User Type is Required" })}
                 className="select select-bordered"
               >
+                <option value="" disabled>Select User Type</option>
                 <option value="normal">Normal User</option>
                 <option value="admin">Admin</option>
                 <option value="author">Author</option>
