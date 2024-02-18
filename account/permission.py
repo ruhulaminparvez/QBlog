@@ -5,6 +5,10 @@ class Authenticated(permissions.BasePermission):
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_authenticated)
     
+class NoPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return True
+    
 class IsSuperUser(permissions.BasePermission):
     """
     Superuser permission
