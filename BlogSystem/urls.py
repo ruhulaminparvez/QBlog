@@ -18,7 +18,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
-    path('api/', include('Blog.urls')),
+    path('', include('Blog.urls')),
     path('', blogPercentage, name='blog-percentage'),
     path('blogList/', blogList, name='blog-list'),
 
