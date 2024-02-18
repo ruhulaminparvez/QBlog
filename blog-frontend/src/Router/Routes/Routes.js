@@ -6,24 +6,24 @@ import Main from "../../layouts/Main";
 
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Main />,
-    children: [
-        {
-            path: "/",
-            element: <Home />
-        },
-        {
-            path: "/login",
-            element: <Login />
-        },
-        {
-            path: "/signup",
-            element: <SignUp />
-        },
-    ]
-  },
+    {
+        path: "/",
+        element: <Main />,
+        children: [
+            {
+                path: "/",
+                element: <Home />
+            }
+        ]
+    },
+    {
+        path: "/login",
+        element: <Login />
+    },
+    {
+        path: "/signup",
+        element: <SignUp />
+    },
 ]);
 
 export default router;

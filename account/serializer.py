@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from  .models import User
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
@@ -33,11 +34,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
-    
-class CustomTokenObtainPairSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
-    
+       
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    user_type = serializers.CharField(source='user.user_type', read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
+
     def validate(self, attrs):
-        data = super(CustomTokenObtainPairSerializer, self).validate(attrs)
+        data = super().validate(attrs)
+        data['user_type'] = self.user.user_type
+        data['username'] = self.user.username
         return data

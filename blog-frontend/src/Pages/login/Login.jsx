@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
+import { useContext } from "react";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { signInUser } = useContext(AuthContext);
 
     const onSubmit = (data) => {
-        console.log(data);
+        signInUser(data);
     }
     return (
         <div className="bg-base-200 py-16">

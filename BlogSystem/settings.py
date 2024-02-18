@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'Blog',
     'silk',
     'drf_yasg',
+    'corsheaders',
     'rest_framework',
     "django_elasticsearch_dsl",
 ]
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'silk.middleware.SilkyMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -40,6 +42,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

@@ -1,38 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { createUser } = useContext(AuthContext);
 
   const onSubmit = (data) => {
-    console.log(data);
-
-    fetch("http://127.0.0.1:8000/account/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.ok) {
-          toast.success("Registration Successful. Please Login!");
-          return response.json();
-        }
-        return response.json().then((data) => {
-          throw new Error(data.message);
-        });
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        toast.error(error.message || "Resgistation Failed! Please try again");
-        console.log(error.message);
-      });
+    createUser(data);
   }
 
   return (
