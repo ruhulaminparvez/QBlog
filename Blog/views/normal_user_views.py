@@ -24,6 +24,7 @@ def blog_list(request):
 def blog_detail(request, pk):
     try:
         blog = Blog.objects.get(pk=pk)
+        blog.update_total_views()
     except Blog.DoesNotExist:
         return Response({"message": "Blog not found"}, status=status.HTTP_404_NOT_FOUND)
 

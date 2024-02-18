@@ -22,5 +22,9 @@ class Blog(models.Model):
     def __str__(self):
         return f'{self.category} - {self.title} by {self.author}'
     
+    def update_total_views(self):
+        self.total_views += 1
+        self.save(update_fields=['total_views'])
+    
 
     
