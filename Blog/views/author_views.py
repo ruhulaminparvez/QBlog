@@ -16,7 +16,7 @@ class BlogView(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
     
 class CategoryView(viewsets.ModelViewSet):
-    permission_classes = [Authenticated]
+    # permission_classes = [Authenticated]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     
