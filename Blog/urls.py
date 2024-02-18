@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 blogItem = DefaultRouter()
 
 blogItem.register('blog', views.BlogView)
+blogItem.register('category', views.CategoryView)
 
 urlpatterns = [
     path('', include(blogItem.urls)),
