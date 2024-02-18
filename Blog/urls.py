@@ -8,7 +8,7 @@ blogItem.register('blog', views.BlogView)
 blogItem.register('category', views.CategoryView)
 
 urlpatterns = [
-    path('', include(blogItem.urls)),
+    path('api/', include(blogItem.urls)),
     path('search/<str:query>/', views.SearchBlog.as_view()),
 
     path('visitor/blogs/', views.blog_list),

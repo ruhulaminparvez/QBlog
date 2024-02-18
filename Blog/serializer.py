@@ -14,9 +14,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BlogSerializer(serializers.ModelSerializer):
+    author = serializers.CharField(source='author.username', read_only=True)
+    category_name = serializers.CharField(source='category.name', read_only=True)
     class Meta:
         model = Blog
         fields = '__all__'
+        read_only_fields = ('author',)
         
 class BlogSearchSerializer(serializers.ModelSerializer):
     author = serializers.CharField(source='author.username')
