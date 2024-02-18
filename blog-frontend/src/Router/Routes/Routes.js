@@ -3,7 +3,17 @@ import SignUp from "../../Pages/signup/SignUp";
 import Home from "../../Pages/home/Home";
 import Login from "../../Pages/login/Login";
 import Main from "../../layouts/Main";
+import { Navigate } from "react-router-dom";
 
+const AccessControl = ({ element }) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        return element;
+    } else {
+        return <Navigate to="/unauthorized" />;
+    }
+};
 
 const router = createBrowserRouter([
     {
@@ -12,7 +22,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home />
+                element: <AccessControl element={<Home />} />
+            },
+            {
+                path: "/unauthorized",
+                element: <div className="bg-base-200 p-5">
+                    <h1 className="text-2xl text-center">Unauthorized!!</h1>
+                    <p className="text-center">You are not authorized to view this page</p>
+                    <button className="btn btn-primary block mx-auto mt-5" onClick={() => window.location.href = "/login"}>Login</button>
+                </div>
             }
         ]
     },
