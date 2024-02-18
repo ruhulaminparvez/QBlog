@@ -10,5 +10,8 @@ blogItem.register('category', views.CategoryView)
 urlpatterns = [
     path('', include(blogItem.urls)),
     path('search/<str:query>/', views.SearchBlog.as_view()),
+
+    path('visitor/blogs/', views.blog_list),
+    path('visitor/blog/<int:pk>/', views.blog_detail),
 ]
 
