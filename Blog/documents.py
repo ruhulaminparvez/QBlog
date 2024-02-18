@@ -25,4 +25,5 @@ class BlogDocument(Document):
         fields = [
             'id',
             'title',
+            'details',
         ]

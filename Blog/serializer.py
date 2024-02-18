@@ -23,5 +23,5 @@ class BlogSearchSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source='category.name')
     class Meta:
         model = Blog
-        fields = ('id', 'author', 'category', 'title')
+        fields = ('id', 'author', 'category', 'title', 'details')
         read_only = True
